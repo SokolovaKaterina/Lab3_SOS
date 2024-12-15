@@ -1,0 +1,40 @@
+<html>
+<body>
+<div>
+    <form action="/logout" method="post">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <input type="submit" value="Выйти"/>
+    </form>
+</div>
+<button type="button" onclick="window.location.href='/task'">Добавить задачу</button>
+<div>Здесь вы можете предложить свою задачу</div>
+<div>После выполнения, ее статус изменится на true</div>
+<div>Не забудьте оставить номер телефона для связи</div>
+<p></p>
+
+<div><h3><u>Выполняемые задачи</u></h3></div>
+{{#tasks}}
+    <div>
+        <strong>{{name}}</strong>
+        <div></div>
+        <i>Описание: {{description}}</i>
+        <div></div>
+        <span>Телефон заказчика: {{phoneNumber}}</span>
+        <div></div>
+        <i>Статус выполнения: {{status}}</i>
+        <div></div>
+        {{#organisation}}
+            <span> Название организации: {{name}} </span>
+            <div></div>
+        {{/organisation}}
+        {{^organisation}}
+            <span>Название организации: организация не выбрана</span>
+            <div></div>
+        {{/organisation}}
+        <div></div>
+        <p></p>
+    </div>
+{{/tasks}}
+
+</body>
+</html>

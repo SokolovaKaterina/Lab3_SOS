@@ -1,0 +1,101 @@
+<html>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информация о департаменте</title>
+</head>
+<body>
+    <div>
+        <button type="button" onclick="window.location.href='/mainAdmin'">Назад</button>
+        <h3>Создать департамент</h3>
+    </div>
+
+    {{#errorMessage}}
+        <div style="color: red;">{{errorMessage}}</div>
+    {{/errorMessage}}
+
+    {{#successMessage}}
+        <div style="color: green;">{{successMessage}}</div>
+    {{/successMessage}}
+    <p> </p>
+
+    <div>
+        <form method="post">
+            <input type="text" name="name" placeholder="Введите название департамента" required />
+            <input type="text" name="rooms" placeholder="Комнаты" required />
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+            <button type="submit">Добавить</button>
+        </form>
+    </div>
+    <p></p>
+    <!-- Отображение ошибок -->
+    {{#errorMessage}}
+        <div class="error">{{errorMessage}}</div>
+    {{/errorMessage}}
+    <p></p>
+    <div><h3><u>Список департаментов:</u></h3></div>
+    <form method="get" action="/department">
+        <input type="text" name="filter" placeholder="Введите название департамента" />
+        <button type="submit">Найти</button>
+    </form>
+    {{#departments}}
+        <div>
+            <span> id департамента: {{id}} </span>
+            <div></div>
+            <strong> Название: {{name}} </strong>
+            <div></div>
+<!--            <i> Количество сотрудников: {{countStaff}} </i>-->
+<!--            <div></div>-->
+            <i> Комнаты: {{rooms}} </i>
+            <div></div>
+            <i>
+                <strong>Руководитель: </strong>
+                {{#head}}
+                    {{head.FCs}}
+                {{/head}}
+                {{^head}}
+                    Руководитель не назначен
+                {{/head}}
+            </i>
+        </div>
+    {{/departments}}
+    <p> </p>
+    <div> </div>
+    <div><h3><u>Добавить начальника департамента</u></h3></div>
+    <form method="get" action="/department">
+        <input type="number" name="depId" placeholder="Введите id департамента" required />
+        <input type="number" name="staffId" placeholder="Введите id начальника" required />
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <button type="submit">Добавить</button>
+    </form>
+
+    <div><u>Список сотрудников:</u></div>
+    {{#staff}}
+        <div>
+            <span> id сотрудника: {{id}} </span>
+            <div> </div>
+            <strong> ФИО: {{FCs}} </strong>
+            <div> </div>
+            <i> Адрес: {{address}} </i>
+            <div> </div>
+            <span> Должность: {{post}} </span>
+            <div> </div>
+            <span> Дата рождения: {{birthDate}} </span>
+            <div> </div>
+            {{#department}}
+                <span> Название департамента: {{department.name}} </span>
+                <div></div>
+            {{/department}}
+            <div></div>
+            <p></p>
+        </div>
+    {{/staff}}
+    <div></div>
+    <p></p>
+    <div><h3>Удалить департамент</h3></div>
+    <form method="post" action="/deleteDepartment">
+        <input type="text" name="name" placeholder="Введите название департамента" required />
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <button type="submit">Удалить</button>
+    </form>
+</body>
+</html>

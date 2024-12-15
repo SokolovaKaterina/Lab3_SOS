@@ -1,0 +1,79 @@
+<html>
+<body>
+<div>
+    <button type="button" onclick="window.location.href='/mainUser'">Назад</button>
+    <h3>Создать задачу</h3>
+    <form method="post" action="/task">
+        <input type="text" name="name" placeholder="Введите задачу" />
+        <input type="text" name="phoneNumber" placeholder="Номер телефона">
+        <input type="text" name="description" placeholder="Описание">
+
+        <label for="organisationId">Организация:</label>
+        <select name="orgId">
+            <option value="">Не выбрано</option>
+            {{#organisations}}
+                <option value="{{id}}">{{id}} - {{name}} - {{description}}</option>
+            {{/organisations}}
+        </select>
+
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <button type="submit">Добавить</button>
+    </form>
+
+</div>
+
+<div><h3>Список организаций:</h3></div>
+{{#organisations}}
+    <div>
+        <strong> ID организации: {{id}} </strong>
+        <div></div>
+        <span> Название: {{name}} </span>
+        <div></div>
+        <span> Описание: {{description}} </span>
+        <div></div>
+        <i> Адрес: {{address}} </i>
+        <p></p>
+    </div>
+{{/organisations}}
+
+<div><h3>Добавить организацию</h3></div>
+<form method="post" action="/assignOrganisationToTask">
+    <input type="number" name="taskId" placeholder="Введите ID задачи" />
+    <input type="number" name="orgId" placeholder="Введите ID организации" />
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+    <button type="submit">Назначить организацию</button>
+</form>
+
+<div><h3>Список задач</h3></div>
+<form method="get" action="/task">
+    <input type="text" name="filter" placeholder="Введите название задачи">
+    <button type="submit">Найти</button>
+</form>
+
+{{#tasks}}
+    <div>
+        <span>id: {{id}}</span>
+        <div></div>
+        <strong>Задача: {{name}}</strong>
+        <div></div>
+        <i>Описание: {{description}}</i>
+        <div></div>
+        <span>Телефон заказчика: {{phoneNumber}}</span>
+        <div></div>
+        <i>Статус выполнения: {{status}}</i>
+        <div></div>
+        {{#organisation}}
+            <span> Название организации: {{organisation.name}} </span>
+            <div></div>
+        {{/organisation}}
+        {{^organisation}}
+            <span>Название организации: организация не выбрана</span>
+            <div></div>
+        {{/organisation}}
+        <div></div>
+        <p></p>
+    </div>
+{{/tasks}}
+
+</body>
+</html>

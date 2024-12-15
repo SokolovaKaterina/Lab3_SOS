@@ -1,0 +1,50 @@
+<html>
+
+<body>
+
+<div>
+    <button type="button" onclick="window.location.href='/mainAdmin'">Назад</button>
+    <h3><u>Список задач</u></h3>
+</div>
+{{#tasks}}
+    <div>
+        <span>ID: {{id}}</span>
+        <div></div>
+        <strong>Название: {{name}}</strong>
+        <div></div>
+        <i>Oписание: {{description}}</i>
+        <div></div>
+        <span>Tелефон заказчика: {{phoneNumber}}</span>
+        <div></div>
+        <i>Статус выполнения: {{status}}</i>
+        <div></div>
+        {{#organisation}}
+            <span> Название организации: {{name}} </span>
+            <div></div>
+        {{/organisation}}
+        <p></p>
+    </div>
+{{/tasks}}
+
+<div><h3><u>Поиск</u></h3></div>
+<form method="get" action="/taskAdmin">
+    <input type="text" name="filter" placeholder="Введите название задачи">
+    <button type="submit">Найти</button>
+</form>
+
+<div><h3><u>Удалить задачу</u></h3></div>
+<form method="post" action="deleteTask">
+    <input type="number" name="id" placeholder="Введите id задачи" />
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+    <button type="submit">Удалить</button>
+</form>
+
+<div><h3><u>Изменить статус задачи, отметить выполненной</u></h3></div>
+<form method="post" action="taskSolution">
+    <input type="number" name="id" placeholder="Введите id задачи" />
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+    <button type="submit">Выполнить</button>
+</form>
+
+</body>
+</html>

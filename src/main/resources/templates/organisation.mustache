@@ -1,0 +1,98 @@
+<html>
+
+<body>
+    <div>
+        <button type="button" onclick="window.location.href='/mainAdmin'">Назад</button>
+        <h3>Создать организацию</h3></div>
+    <div>
+        <form method="post" action="/organisation">
+            <input type="text" name="name" placeholder="Введите название организации" />
+            <input type="text" name="description" placeholder="Описание организации" />
+            <input type="text" name="address" placeholder="Адрес">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+            <button type="submit">Добавить</button>
+        </form>
+    </div>
+    <div><h3>Список организаций:</h3></div>
+    <form method="get" action="organisation">
+        <input type="text" name="filter" placeholder="Название организации">
+        <button type="submit">Найти</button>
+    </form>
+    {{#organisations}}
+        <div>
+            <strong> ID организации: {{id}} </strong>
+            <div> </div>
+            <span> Название: {{name}} </span>
+            <div> </div>
+            <span> Описание: {{description}} </span>
+            <div> </div>
+            <i> Адрес: {{address}} </i>
+            <div> </div>
+            {{#boss}}
+                <span> Директор организации: {{boss.FCs}} </span>
+                <div></div>
+            {{/boss}}
+            {{^boss}}
+                <span> Директор организации: директор не назначен</span>
+                <div></div>
+            {{/boss}}
+            <p></p>
+        </div>
+    {{/organisations}}
+    <div></div>
+    <div><h3>Добавить начальника организации</h3></div>
+    <form method="get" action="organisation">
+        <input type="number" name="orgId" placeholder="Введите id организации" />
+        <input type="number" name="staffId" placeholder="Введите id начальника">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <button type="submit">Добавить</button>
+    </form>
+
+    <div><h3>Список сотрудников:</h3></div>
+    {{#staff}}
+        <div>
+            <span> id сотрудника: {{id}} </span>
+            <div> </div>
+            <strong> ФИО: {{FCs}} </strong>
+            <div> </div>
+            <i> Адрес: {{address}} </i>
+            <div> </div>
+            <span> Должность: {{post}} </span>
+            <div> </div>
+            <span> Дата рождения: {{birthDate}} </span>
+            <div> </div>
+            <p></p>
+        </div>
+    {{/staff}}
+    <div></div>
+    <div><h3>Список задач для организации</h3></div>
+    {{#tasks}}
+        <div>
+            <span>id: {{id}}</span>
+            <div></div>
+            <strong>Задача: {{name}}</strong>
+            <div></div>
+            <i>Описание: {{description}}</i>
+            <div></div>
+            <span>Телефон заказчика: {{phoneNumber}}</span>
+            <div></div>
+            <i>Статус выполнения: {{status}}</i>
+            <div></div>
+            {{#organisation}}
+                <span> Название организации: {{organisation.name}} </span>
+                <div></div>
+            {{/organisation}}
+            <div></div>
+            <p></p>
+        </div>
+    {{/tasks}}
+
+    <div>Удалить организацию</div>
+    <form method="post" action="deleteOrganisation">
+        <input type="text" name="name" placeholder="Введите название организации" />
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <button type="submit">Удалить</button>
+    </form>
+</body>
+
+</html>

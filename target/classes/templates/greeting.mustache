@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div><h3><u>Информация об организациях</u></h3></div>
+{{#organisations}}
+    <div>
+        <span> ID организации: {{id}} </span>
+        <div></div>
+        <strong> Название: {{name}} </strong>
+        <div></div>
+        <i> Aдрес: {{address}} </i>
+        <div> </div>
+        <p></p>
+    </div>
+{{/organisations}}
+<div><h3><u>Информация о департаментах</u></h3></div>
+{{#departments}}
+    <div>
+        <span> ID департамента: {{id}} </span>
+        <div></div>
+        <strong> Название: {{name}} </strong>
+        <div></div>
+        <i> Количество сотрудников: {{countStaff}} </i>
+        <div></div>
+        <i> Комнаты: {{rooms}} </i>
+        <div></div>
+        <p></p>
+    </div>
+{{/departments}}
+<div>
+    <button type="button" onclick="window.location.href='/mainUser'">Страница пользователя</button>
+    <div></div>
+    <p></p>
+    <button type="button" onclick="window.location.href='/mainAdmin'">Cтраница администратора</button>
+</div>
+</body>
+</html>
